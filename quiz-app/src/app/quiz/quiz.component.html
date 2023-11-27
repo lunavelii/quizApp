@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-8 quiz-container">
+      <h1 class="text-center mb-4"><b>Mongo, node, boostrap </b>quiz</h1>
+      <div class="question-counter" *ngIf="!showingScore">
+        Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}
+      </div>
+      <app-question
+        *ngIf="!showingScore"
+        [question]="currentQuestion"
+        (answerSelected)="submitAnswer($event)"
+      ></app-question>
+      <div class="mt-4 text-center" *ngIf="!showingScore">
+        <button
+          (click)="nextQuestion()"
+          class="btn btn-primary"
+          [disabled]="!isAnswerSelected()"
+        >
+          Next
+        </button>
+      </div>
+      <div class="mt-4 text-center" *ngIf="showingScore">
+        <h3>Your Score:</h3>
+        <h2
+          class="score"
+          [ngClass]="{
+            'text-success': getScore() > questions.length * 0.3,
+            'text-danger': getScore() <= questions.length * 0.3
+          }"
+        >
+          {{ getScore() }} out of {{ questions.length }}
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div id="credit" class="text-center mb-4">Made by: Mikolaj Grzegorczyk</div>
+</div>
